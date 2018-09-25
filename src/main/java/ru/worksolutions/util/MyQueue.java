@@ -234,15 +234,15 @@ public class MyQueue<E> implements Queue<E> {
         // this method is called internally, so it is not necessary to validate parameters
         // presuming the queue in not empty and index is correct
         int indexInBuffer = (indexToGet + indexInQueue) % buffer.length;
-        if(indexInBuffer == indexToGet) { // first in the queue
+        if (indexInBuffer == indexToGet) { // first in the queue
             indexToGet++;
-            if(indexToGet == buffer.length) indexToGet = 0;
+            if (indexToGet == buffer.length) indexToGet = 0;
             count--;
             return;
         }
         int lastIndex = indexToPut - 1;
-        if(lastIndex < 0) lastIndex = buffer.length - 1;
-        if(indexInBuffer == lastIndex) { // last in the queue
+        if (lastIndex < 0) lastIndex = buffer.length - 1;
+        if (indexInBuffer == lastIndex) { // last in the queue
             indexToPut = lastIndex;
             count--;
             return;
@@ -257,16 +257,17 @@ public class MyQueue<E> implements Queue<E> {
         }
         */
         int lengthToShift = count - (indexInQueue + 1);
-        int endIndex = indexToGet + count;
+        int endIndex = indexInBuffer + 1 + lengthToShift;
         int lengthOfFirstHalf = endIndex > buffer.length ? buffer.length - (indexInBuffer + 1) : lengthToShift;
         System.arraycopy(buffer, indexInBuffer + 1, buffer, indexInBuffer, lengthOfFirstHalf);
-        if(endIndex > buffer.length) {
+        if (endIndex > buffer.length) {
             buffer[buffer.length - 1] = buffer[0];
-            System.arraycopy(buffer, 1, buffer,0, lengthToShift - lengthOfFirstHalf - 1);
+            System.arraycopy(buffer, 1, buffer, 0, lengthToShift - lengthOfFirstHalf - 1);
         }
         indexToPut = lastIndex;
         count--;
     }
+
     /**
      * Removes a single instance of the specified element from this
      * collection, if it is present (optional operation).  More formally,
@@ -288,10 +289,10 @@ public class MyQueue<E> implements Queue<E> {
      *                                       is not supported by this collection
      */
     public boolean remove(Object o) {
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             int index = (indexToGet + i) % buffer.length;
-            if(buffer[index] == null) {
-                if(o == null) {
+            if (buffer[index] == null) {
+                if (o == null) {
                     removeAt(i);
                     return true;
                 }
@@ -388,7 +389,7 @@ public class MyQueue<E> implements Queue<E> {
     public boolean removeAll(Collection<?> c) {
         boolean result = false;
         int i = 0;
-        while(i < count) {
+        while (i < count) {
             int index = (indexToGet + i) % buffer.length;
             if (c.contains(buffer[index])) {
                 result = true;
@@ -424,7 +425,7 @@ public class MyQueue<E> implements Queue<E> {
     public boolean retainAll(Collection<?> c) {
         boolean result = false;
         int i = 0;
-        while(i < count) {
+        while (i < count) {
             int index = (indexToGet + i) % buffer.length;
             if (!c.contains(buffer[index])) {
                 result = true;
@@ -566,12 +567,12 @@ public class MyQueue<E> implements Queue<E> {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         boolean first = true;
-        for(int i = 0; i < count; i++){
-            if(!first) {
+        for (int i = 0; i < count; i++) {
+            if (!first) {
                 sb.append(", ");
             } else first = false;
             int index = (indexToGet + i) % buffer.length;
-            if(buffer[index] == null) {
+            if (buffer[index] == null) {
                 sb.append("null");
             } else {
                 sb.append(buffer[index].toString());

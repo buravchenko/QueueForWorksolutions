@@ -128,6 +128,16 @@ class MyQueueTest {
         assertEquals("{3, 5, 6}", q.toString());
         assertEquals(false, q.remove(10));
         assertEquals("{3, 5, 6}", q.toString());
+        assertEquals(3, (int)q.remove());
+        assertEquals(5, (int)q.remove());
+        assertEquals("{6}", q.toString());
+        q.add(7);
+        q.add(8);
+        q.add(9);
+        q.add(10);
+        assertEquals("{6, 7, 8, 9, 10}", q.toString());
+        assertEquals(true, q.remove(9));
+        assertEquals("{6, 7, 8, 10}", q.toString());
     }
 
     @org.junit.jupiter.api.Test
