@@ -249,10 +249,20 @@ public class MyQueue<E> implements Queue<E> {
         }
         // in the middle of the queue
         // shifting the rest of the queue
+        /*
         for(int i = indexInQueue + 1; i < count; i++) {
             int indexFrom = (indexToGet + i) % buffer.length;
             int indexTo = (indexToGet + i - 1) % buffer.length;
             buffer[indexTo] = buffer[indexFrom];
+        }
+        */
+        int lengthToShift = count - (indexInQueue + 1);
+        int endIndex = indexToGet + count;
+        int lengthOfFirstHalf = endIndex > buffer.length ? buffer.length - (indexInBuffer + 1) : lengthToShift;
+        System.arraycopy(buffer, indexInBuffer + 1, buffer, indexInBuffer, lengthOfFirstHalf);
+        if(endIndex > buffer.length) {
+            buffer[buffer.length - 1] = buffer[0];
+            System.arraycopy(buffer, 1, buffer,0, lengthToShift - lengthOfFirstHalf - 1);
         }
         indexToPut = lastIndex;
         count--;
