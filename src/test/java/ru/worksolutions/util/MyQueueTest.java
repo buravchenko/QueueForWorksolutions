@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("SimplifiableJUnitAssertion")
 class MyQueueTest {
 
     @org.junit.jupiter.api.Test
@@ -110,7 +111,8 @@ class MyQueueTest {
         for(int i = 0; i < 5; i++) {
             q.remove();
         }
-        assertThrows(NoSuchElementException.class, () -> { q.remove(); });
+        //noinspection ResultOfMethodCallIgnored
+        assertThrows(NoSuchElementException.class, q::remove);
     }
 
     @org.junit.jupiter.api.Test
@@ -190,7 +192,8 @@ class MyQueueTest {
     @org.junit.jupiter.api.Test
     void element() {
         MyQueue<Integer> q = new MyQueue<>(5);
-        assertThrows(NoSuchElementException.class, () -> { q.element(); });
+        //noinspection ResultOfMethodCallIgnored
+        assertThrows(NoSuchElementException.class, q::element);
         q.addAll(Arrays.asList(1, 2, 3));
         assertEquals("{1, 2, 3}", q.toString());
         assertEquals(1, (int)q.element());

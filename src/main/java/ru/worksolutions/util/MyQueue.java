@@ -3,6 +3,7 @@ package ru.worksolutions.util;
 import java.util.*;
 import java.util.function.IntUnaryOperator;
 
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class MyQueue<E> implements Queue<E> {
 
     private static final int STARTING_CAPACITY_BY_DEFAULT = 100;
@@ -165,6 +166,7 @@ public class MyQueue<E> implements Queue<E> {
      *                              runtime component type} of the specified array
      * @throws NullPointerException if the specified array is null
      */
+    @SuppressWarnings({"unchecked", "SuspiciousSystemArraycopy"})
     public <T> T[] toArray(T[] a) {
         int endIndex = indexToGet + count;
         // copying the beginning of the queue
@@ -478,6 +480,7 @@ public class MyQueue<E> implements Queue<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    @SuppressWarnings("Duplicates")
     public E remove() {
         if (count == 0) throw new NoSuchElementException();
         E e = (E) buffer[indexToGet];
@@ -548,6 +551,7 @@ public class MyQueue<E> implements Queue<E> {
          * @return the next element in the iteration
          * @throws NoSuchElementException if the iteration has no more elements
          */
+        @SuppressWarnings("Duplicates")
         public E next() {
             if (iCount == 0) throw new NoSuchElementException();
             E e = (E) buffer[iIndexToGet];
